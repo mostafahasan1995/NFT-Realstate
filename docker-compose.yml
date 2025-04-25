@@ -1,0 +1,62 @@
+services:
+  # Database services
+  mongo:
+    image: mongo:5
+    restart: always
+    volumes:
+      - ./data:/data/db
+
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres/node-logs:/var/lib/postgresql/data
+
+  # Application services
+  app:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    restart: always
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    ports:
+      - 127.0.0.1:3000:3000
+    env_file: .env
+
+  xyz:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    restart: always
+    ports:
+      - 127.0.0.1:9999:3000
+    env_file: .env
+
+  node-logs:
+    build:
+      context: .
+      dockerfile: ./apps/node-logs/Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 127.0.0.1:9991:3000
+    env_file: .env
+
+  node-logs-xyz:
+    build:
+      context: .
+      dockerfile: ./apps/node-logs/Dockerfile
+    restart: always
+    ports:
+      - 127.0.0.1:9992:3000
+    env_file: .env

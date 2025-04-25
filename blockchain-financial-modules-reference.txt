@@ -1,0 +1,142 @@
+BLOCKCHAIN/FINANCIAL MODULES ANALYSIS
+====================================
+
+1. WALLETS MODULE
+----------------
+Location: apps/api/src/wallets
+Purpose: Handles Ethereum wallet management
+
+Key Features:
+- Wallet creation and initialization
+- Balance checking (ETH and tokens)
+- Gas management
+- Private key encryption using AWS KMS
+- Wallet archiving
+- Caching for performance
+
+Core Components:
+- WalletsService: Main service handling wallet operations
+- WalletEthersService: Ethereum-specific wallet operations
+- Wallet Schema: MongoDB schema for wallet data
+
+Security Features:
+- Private key encryption
+- Gas balance monitoring
+- Wallet archiving for inactive accounts
+- Caching for performance optimization
+
+2. TOKENIZATION MODULE
+---------------------
+Location: apps/api/src/tokenization
+Purpose: Handles token creation and management
+
+Key Components:
+- Asset Fractions Token (ERC20)
+- Asset Fundraising
+- Asset Collection
+- Order Book
+- Fractional Center
+- Token Vesting
+
+Features:
+- Token minting and burning
+- Token transfers
+- Balance checking
+- Supply cap management
+- Smart contract interactions
+
+3. TRANSACTIONS MODULE
+---------------------
+Location: apps/api/src/transactions
+Purpose: Handles all financial transactions
+
+Key Components:
+- Deposit Service
+- Withdraw Service
+- Digital Bank Integration
+
+Features:
+- Bank transfers
+- Token transfers
+- Balance tracking
+- Transaction history
+- OTP verification
+- Reference ID generation
+- Invoice management
+
+4. ASSET MODULE
+--------------
+Location: apps/api/src/asset
+Purpose: Manages real-world assets and their tokenization
+
+Key Features:
+- Asset creation and management
+- Fractional ownership
+- Market value tracking
+- Asset status management
+- Trading token integration
+- Document management
+- ROI calculation
+- Deployment management
+
+Asset States:
+- Coming Soon
+- Active
+- Sold
+- Failed
+
+MODULE INTERACTIONS
+==================
+1. Asset Tokenization Flow:
+   Asset Creation → Token Generation → Smart Contract Deployment → Trading
+
+2. Transaction Flow:
+   User Request → OTP Verification → Smart Contract Interaction → Transaction Recording
+
+3. Wallet Management:
+   Wallet Creation → Key Encryption → Balance Management → Gas Management
+
+SECURITY FEATURES
+================
+- Private key encryption using AWS KMS
+- OTP verification for sensitive operations
+- Role-based access control
+- Gas management for transactions
+- Smart contract validation
+
+INTEGRATION POINTS
+=================
+- Ethereum blockchain
+- AWS services (KMS, S3)
+- Digital banking
+- Email notifications
+- Event system
+
+TECHNICAL DETAILS
+================
+1. Wallet Management:
+   - Uses ethers.js for Ethereum interactions
+   - Implements caching for private keys
+   - Monitors gas balances
+   - Supports both managed and external wallets
+
+2. Token Operations:
+   - ERC20 standard compliance
+   - Smart contract integration
+   - Token supply management
+   - Transfer operations
+
+3. Transaction Processing:
+   - OTP-based security
+   - Reference ID tracking
+   - Invoice generation
+   - Balance management
+
+4. Asset Management:
+   - Fractional ownership tracking
+   - Market value calculations
+   - ROI computation
+   - Document handling
+   - Status management
+
+This reference document provides a comprehensive overview of the Blockchain/Financial modules in the system. For specific implementation details, refer to the respective module files in the codebase. 
